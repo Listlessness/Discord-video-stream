@@ -58,14 +58,19 @@ export class VoiceUdp {
         return this._voiceConnection;
     }
 
-    public sendAudioFrame(frame: any): void{
-        if(!this.ready) return;
+   public sendAudioFrame(frame: any): void {
+    if (!this.ready) return;
 
-       const packet = this.audioPacketizer.createPacket(frame);
-        this.sendPacket(packet);
+    const volumeBoost = 2; // Adjust the volume boost factor as needed
 
-        this.audioPacketizer.onFrameSent();
-    }
+    const boostedFrame = frame.map((sample: number) => sample * volumeBoost);
+
+    const packet = this.audioPacketizer.createPacket(boostedFrame);
+    this.sendPacket(packet);
+
+    this.audioPacketizer.onFrameSent();
+}
+
 
     /**
      * Sends packets after partitioning the video frame into
