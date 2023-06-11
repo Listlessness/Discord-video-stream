@@ -74,7 +74,7 @@ export function streamLivestreamVideo(url: string | Readable, voiceUdp: VoiceUdp
             .noVideo()
             .audioChannels(2)
             .audioFrequency(48000)
-            //.audioBitrate('128k')
+            .audioBitrate('128k')
             .format('s16le');
             
             if(streamOpts.hardware_encoding) command.inputOption('-hwaccel', 'auto');
